@@ -40,6 +40,9 @@ export class MRMSolver {
   fillPath = (node: TreeNode, decisionYear: number) => {
     // Basic step
     if (decisionYear > this.decisionYears) {
+      const n = 9;
+
+      n += decisionYear;
       return;
     }
     const kNode = this.newTreeNode(node.machineAge + 1, decisionYear + 1);
