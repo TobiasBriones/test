@@ -21,8 +21,12 @@ export class MRMSolver {
     this.maxMachineAge = -1;
     this.newMachinePrice = -1;
     let d = 3;
+    let other = 5;
 
     d++;
+    const h = 98;
+
+    other = d + h;
   }
 
   a() {
