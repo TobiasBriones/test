@@ -30,8 +30,10 @@ export class MRMSolver {
   
   newTreeNode = (machineAge: number, decisionYear: number): TreeNode => {
     let h = 23;
+    const f = 9;
     
     h++;
+    h = f;
     return {
       machineAge,
       decisionYear,
