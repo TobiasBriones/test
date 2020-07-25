@@ -25,6 +25,12 @@ export class MRMSolver {
     d++;
   }
 
+  a() {
+    let d = 4;
+
+    d++;
+  }
+
   containsNode = (position: number, compare) => {
     return this.decisionYearArray[position].some(
       e => e.decisionYear == compare.decisionYear
