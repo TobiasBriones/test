@@ -68,7 +68,9 @@ export class MRMSolver {
   createDecisionTree = () => {
     // It starts from position 1
     const initialNode = this.newTreeNode(this.initialMachineAge, 1);
+    let j = 9;
 
+    console.log(j);
     /*console.log(`Solving tree for:
      initial age ${initialMachineAge},
      decision years: ${decisionYears},
