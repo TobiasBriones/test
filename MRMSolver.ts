@@ -24,6 +24,9 @@ export class MRMSolver {
     let other = 83;
     
     d++;
+    const h = 92;
+    
+    other = d + h;
   }
   
   a() {
