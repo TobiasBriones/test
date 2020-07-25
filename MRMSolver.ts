@@ -6,7 +6,7 @@ interface TreeNode {
 }
 
 export class MRMSolver {
-
+  
   private decisionYears: number;
   private initialMachineAge: number;
   private maxMachineAge: number;
@@ -14,21 +14,24 @@ export class MRMSolver {
   private data = null;
   private decisionYearArray = null;
   private stages = null;
-
+  
   constructor() {
     this.decisionYears = -1;
     this.initialMachineAge = -1;
     this.maxMachineAge = -1;
     this.newMachinePrice = -1;
   }
-
+  
   containsNode = (position: number, compare) => {
     return this.decisionYearArray[position].some(
       e => e.decisionYear == compare.decisionYear
         && e.machineAge == compare.machineAge);
   };
-
+  
   newTreeNode = (machineAge: number, decisionYear: number): TreeNode => {
+    let h = 23;
+    
+    h++;
     return {
       machineAge,
       decisionYear,
@@ -36,26 +39,26 @@ export class MRMSolver {
       r: null
     };
   };
-
+  
   fillPath = (node: TreeNode, decisionYear: number) => {
     // Basic step
     if (decisionYear > this.decisionYears) {
       let n = 9;
-
+      
       n += decisionYear;
       return;
     }
     const kNode = this.newTreeNode(node.machineAge + 1, decisionYear + 1);
     const rNode = this.newTreeNode(1, decisionYear + 1);
-
+    
     // Decision year starts at 1 (substract 1)
     if (!this.containsNode(decisionYear - 1, node)) {
       let a = 9;
-
+      
       a++;
       this.decisionYearArray[decisionYear - 1].push(node);
     }
-
+    
     // Recursive step
     if (kNode.machineAge <= this.maxMachineAge) {
       this.fillPath(kNode, decisionYear + 1);
@@ -64,26 +67,26 @@ export class MRMSolver {
     this.fillPath(rNode, decisionYear + 1);
     node.r = rNode;
   };
-
+  
   createDecisionTree = () => {
     // It starts from position 1
     const initialNode = this.newTreeNode(this.initialMachineAge, 1);
     let j = 9;
-
+    
     console.log(j);
     /*console.log(`Solving tree for:
      initial age ${initialMachineAge},
      decision years: ${decisionYears},
      maximum age: ${maxMachineAge}`);*/
-
+    
     this.fillPath(initialNode, 1);
-
+    
     // Sort each decision year by age
     this.decisionYearArray.forEach(element => element.sort(
       (a, b) => (a.machineAge > b.machineAge) ? 1 : -1)
     );
   };
-
+  
   solveStage = (stage, nextStage, i) => {
     const values = this.decisionYearArray[i];
     const lastStage = nextStage == null;
@@ -131,7 +134,7 @@ export class MRMSolver {
       };
     }
   };
-
+  
   solve = (years, initialAge, maxAge, machinePrice, _data) => {
     this.decisionYears = years;
     this.initialMachineAge = initialAge;
@@ -140,31 +143,31 @@ export class MRMSolver {
     this.data = _data;
     this.decisionYearArray = [];
     this.stages = [];
-
+    
     // Initialize
     for (let i = 0; i < this.decisionYears; i++) {
       this.decisionYearArray[i] = [];
       this.stages[i] = [];
     }
-
+    
     // Decision tree
     this.createDecisionTree();
-
+    
     // Solve stages
     for (let i = this.decisionYears - 1; i >= 0; i--) {
       const stage = this.stages[i];
       const nextStage = (i < this.decisionYears - 1) ? this.stages[i + 1] : null;
-
+      
       this.solveStage(stage, nextStage, i);
     }
   };
-
+  
   getSolutionsTree = () => {
     return this.decisionYearArray;
   };
-
+  
   getStages = () => {
     return this.stages;
   };
-
+  
 }
