@@ -1,3 +1,3 @@
-module fs
+module test
 
 go 1.18
